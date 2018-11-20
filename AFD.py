@@ -1,17 +1,17 @@
 class AFD:
-
-    "A Finite Automata FA is a quintuple (Q, E, T, S, F), where: "
-    "Q is the set of states             (not necessary)"
-    "E is the set of symbols            (not necessary)"
-    "T is the set of transition rules   (not necessary)"
-    "S is the start state               (necessary)"
-    "F is the final/accepting state     (necessary)"
-
-    def __init__(self, states = set(), transitions = dict(), initial = None, final = set()):
-        self.states = states
-        self.transitions = transitions
+    '''
+    A Finite Automata FA is a quintuple (Q, E, T, S, F), where:
+    Q is the set of states             (not necessary)
+    E is the set of symbols            (not necessary)
+    T is the set of transition rules   (not necessary)
+    S is the start state               (necessary)
+    F is the final/accepting state     (necessary)
+    '''
+    def __init__(self, states = None, transitions = None, initial = None, final = None):
+        self.states = set() if states is None else states
+        self.transitions = dict() if transitions is None else transitions
         self.initial = initial
-        self.final = final
+        self.final = set() if final is None else final
 
     def __str__(self):
         return \

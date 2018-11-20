@@ -2,7 +2,7 @@ import TokenAFDs
 
 
 
-afd = TokenAFDs.whileAFD()
+afd = TokenAFDs.getStringAFD('(')
 
-print(afd.accepts("while"))
+print(afd.accepts("(while)"))
 print(afd.accepts("whitle"))
