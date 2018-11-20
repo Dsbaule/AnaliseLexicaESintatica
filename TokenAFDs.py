@@ -117,6 +117,7 @@ def num_AFD():
     num_AFD.addState('num', True)
     num_AFD.setTransitions('', CharClasses.digits(), 'num')
     num_AFD.setTransitions('num', CharClasses.digits(), 'num')
+    return num_AFD
 
 # AFD for token real ([0-9].[0-9])
 def real_AFD():
@@ -124,12 +125,13 @@ def real_AFD():
     real_AFD.addState('', False, True)
     real_AFD.addState('num')
     real_AFD.addState('num.')
-    real_AFD.addState('num.number')
+    real_AFD.addState('num.num', True)
     real_AFD.setTransitions('', CharClasses.digits(), 'num')
     real_AFD.setTransitions('num', CharClasses.digits(), 'num')
     real_AFD.setTransitions('num', '.', 'num.')
     real_AFD.setTransitions('num.', CharClasses.digits(), 'num.num')
     real_AFD.setTransitions('num.num', CharClasses.digits(), 'num.num')
+    return real_AFD
 
 # AFD for token true
 def true_AFD():
@@ -147,6 +149,7 @@ def id_AFD():
     idAFD.setTransitions('', CharClasses.letters(), 'char')
     idAFD.setTransitions('char', CharClasses.letters(), 'char')
     idAFD.setTransitions('char', CharClasses.digits(), 'char')
+    return idAFD
 
 '''
     !!!!!!!!!!!!!!!!!!!!!!!!!!! VERIFICAR BASIC !!!!!!!!!!!!!!!!!!!!!!!!!!

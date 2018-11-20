@@ -29,7 +29,7 @@ class AFD:
 
     def removeState(self, state):
         if state not in self.states:
-            raise NameError('Invalid State!')
+            raise NameError('Invalid State: ' + state)
         if self.initial == state:
             self.initial = None
         self.states.discard(state)
@@ -37,24 +37,24 @@ class AFD:
 
     def setFinal(self, state):
         if state not in self.states:
-            raise NameError('Invalid State!')
+            raise NameError('Invalid State: ' + state)
         self.final.add(state)
 
     def setNotFinal(self, state):
         if state not in self.states:
-            raise NameError('Invalid State!')
+            raise NameError('Invalid State: ' + state)
         self.final.discard(state)
 
     def setInitial(self, state):
         if state not in self.states:
-            raise NameError('Invalid State!')
+            raise NameError('Invalid State: ' + state)
         self.initial = state
 
     def setTransition(self, stateFrom, symbol, stateTo):
         if stateFrom not in self.states:
-            raise NameError('Invalid starting State!')
+            raise NameError('Invalid starting State!' + stateFrom)
         if stateTo not in self.states:
-            raise NameError('Invalid end State!')
+            raise NameError('Invalid end State!: ' + stateTo)
         self.transitions.update({(stateFrom,symbol):stateTo})
 
     def setTransitions(self, stateFrom, symbols, stateTo):

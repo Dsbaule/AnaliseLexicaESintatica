@@ -23,216 +23,114 @@ assert (TokenAFDs.OCB_AFD().accepts('{ASD}') > 0)
 assert (TokenAFDs.OCB_AFD().accepts('({els)') == 0)
 print("TEST TOKEN {     ->  OK")
 
-assert (TokenAFDs.CCB_AFD().accepts('}') > 0)
+assert (TokenAFDs.CCB_AFD().accepts('}efda') > 0)
 assert (TokenAFDs.CCB_AFD().accepts('{}els)') == 0)
 print("TEST TOKEN }     ->  OK")
 
-'''
+assert (TokenAFDs.SC_AFD().accepts(';ads') > 0)
+assert (TokenAFDs.SC_AFD().accepts('asd;') == 0)
+print("TEST TOKEN ;     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token ;
-def SC_AFD():
-    return getStringAFD(';')
+assert (TokenAFDs.OR_AFD().accepts('|| (test)') > 0)
+assert (TokenAFDs.OR_AFD().accepts('|asd;') == 0)
+print("TEST TOKEN ||    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token ||
-def OR_AFD():
-    return getStringAFD('||')
+assert (TokenAFDs.AND_AFD().accepts('&& (test)') > 0)
+assert (TokenAFDs.AND_AFD().accepts('a(els)') == 0)
+print("TEST TOKEN &&    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token &&
-def AND_AFD():
-    return getStringAFD('&&')
+assert (TokenAFDs.EQ_AFD().accepts('== (test)') > 0)
+assert (TokenAFDs.EQ_AFD().accepts('a == els)') == 0)
+print("TEST TOKEN ==    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token ==
-def EQ_AFD():
-    return getStringAFD('==')
+assert (TokenAFDs.NEQ_AFD().accepts('!= (test)') > 0)
+assert (TokenAFDs.NEQ_AFD().accepts('a!=ls)') == 0)
+print("TEST TOKEN !=    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token !=
-def NEQ_AFD():
-    return getStringAFD('!=')
+assert (TokenAFDs.LT_AFD().accepts('<(test)') > 0)
+assert (TokenAFDs.LT_AFD().accepts('a(<ls)') == 0)
+print("TEST TOKEN <     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token <
-def LT_AFD():
-    return getStringAFD('<')
+assert (TokenAFDs.LE_AFD().accepts('<=(test)') > 0)
+assert (TokenAFDs.LE_AFD().accepts('a(<=ls)') == 0)
+print("TEST TOKEN <=    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token <=
-def LE_AFD():
-    return getStringAFD('<=')
+assert (TokenAFDs.GE_AFD().accepts('>=(test)') > 0)
+assert (TokenAFDs.GE_AFD().accepts('a(>=ls)') == 0)
+print("TEST TOKEN >=    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token >=
-def GE_AFD():
-    return getStringAFD('>=')
+assert (TokenAFDs.GT_AFD().accepts('>(test)') > 0)
+assert (TokenAFDs.GT_AFD().accepts('a(e>ls)') == 0)
+print("TEST TOKEN >     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token >
-def GT_AFD():
-    return getStringAFD('>')
+assert (TokenAFDs.ATT_AFD().accepts('= test') > 0)
+assert (TokenAFDs.ATT_AFD().accepts('a(e=ls)') == 0)
+print("TEST TOKEN =     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token =
-def ATT_AFD():
-    return getStringAFD('=')
+assert (TokenAFDs.PL_AFD().accepts('+test') > 0)
+assert (TokenAFDs.PL_AFD().accepts('a(+els)') == 0)
+print("TEST TOKEN +     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token +
-def PL_AFD():
-    return getStringAFD('+')
+assert (TokenAFDs.MN_AFD().accepts('-test') > 0)
+assert (TokenAFDs.MN_AFD().accepts('a(-els)') == 0)
+print("TEST TOKEN -     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token -
-def MN_AFD():
-    return getStringAFD('-')
+assert (TokenAFDs.MT_AFD().accepts('*test(') > 0)
+assert (TokenAFDs.MT_AFD().accepts('a(e*ls)') == 0)
+print("TEST TOKEN *     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token *
-def MT_AFD():
-    return getStringAFD('*')
+assert (TokenAFDs.DV_AFD().accepts('/test') > 0)
+assert (TokenAFDs.DV_AFD().accepts('a(/ls)') == 0)
+print("TEST TOKEN /     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token /
-def DV_AFD():
-    return getStringAFD('/')
+assert (TokenAFDs.NOT_AFD().accepts('!(test)') > 0)
+assert (TokenAFDs.NOT_AFD().accepts('a(els)') == 0)
+print("TEST TOKEN !     ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token !
-def NOT_AFD():
-    return getStringAFD('!')
+assert (TokenAFDs.if_AFD().accepts('if(cond)') > 0)
+assert (TokenAFDs.if_AFD().accepts('a(elifs)') == 0)
+print("TEST TOKEN if    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token if
-def if_AFD():
-    return getStringAFD('if')
+assert (TokenAFDs.then_AFD().accepts('then EXPRESSION') > 0)
+assert (TokenAFDs.then_AFD().accepts('a(elithenfs)') == 0)
+print("TEST TOKEN then  ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token then
-def then_AFD():
-    return getStringAFD('then')
+assert (TokenAFDs.else_AFD().accepts('else(cond)') > 0)
+assert (TokenAFDs.else_AFD().accepts('a(eelse_AFDls)') == 0)
+print("TEST TOKEN else  ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token else
-def else_AFD():
-    return getStringAFD('else')
+assert (TokenAFDs.while_AFD().accepts('while(cond)') > 0)
+assert (TokenAFDs.while_AFD().accepts('testwhiel') == 0)
+print("TEST TOKEN while ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token while
-def while_AFD():
-    return getStringAFD('while')
+assert (TokenAFDs.do_AFD().accepts('do EXPRESSION') > 0)
+assert (TokenAFDs.do_AFD().accepts('a(edols)') == 0)
+print("TEST TOKEN do    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token do
-def do_AFD():
-    return getStringAFD('do')
+assert (TokenAFDs.break_AFD().accepts('break;') > 0)
+assert (TokenAFDs.break_AFD().accepts('a(els)') == 0)
+print("TEST TOKEN break ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token break
-def break_AFD():
-    return getStringAFD('break')
+assert (TokenAFDs.num_AFD().accepts('5268554asd') > 0)
+assert (TokenAFDs.num_AFD().accepts('a54654)') == 0)
+print("TEST TOKEN num   ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token num ([0-9])
-def num_AFD():
-    num_AFD = AFD()
-    num_AFD.addState('', False, True)
-    num_AFD.addState('num', True)
-    num_AFD.setTransitions('', CharClasses.digits(), 'num')
-    num_AFD.setTransitions('num', CharClasses.digits(), 'num')
+assert (TokenAFDs.real_AFD().accepts('5.5655') > 2)
+assert (TokenAFDs.real_AFD().accepts('555555') == 0)
+print("TEST TOKEN real  ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token real ([0-9].[0-9])
-def real_AFD():
-    real_AFD = AFD()
-    real_AFD.addState('', False, True)
-    real_AFD.addState('num')
-    real_AFD.addState('num.')
-    real_AFD.addState('num.number')
-    real_AFD.setTransitions('', CharClasses.digits(), 'num')
-    real_AFD.setTransitions('num', CharClasses.digits(), 'num')
-    real_AFD.setTransitions('num', '.', 'num.')
-    real_AFD.setTransitions('num.', CharClasses.digits(), 'num.num')
-    real_AFD.setTransitions('num.num', CharClasses.digits(), 'num.num')
+assert (TokenAFDs.true_AFD().accepts('true') > 0)
+assert (TokenAFDs.true_AFD().accepts('false') == 0)
+print("TEST TOKEN true  ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token true
-def true_AFD():
-    return getStringAFD('true')
+assert (TokenAFDs.false_AFD().accepts('false') > 0)
+assert (TokenAFDs.false_AFD().accepts('true') == 0)
+print("TEST TOKEN false ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token false
-def false_AFD():
-    return getStringAFD('false')
+assert (TokenAFDs.id_AFD().accepts('variavel92') > 0)
+assert (TokenAFDs.id_AFD().accepts('(testwhiel)') == 0)
+print("TEST TOKEN id    ->  OK")
 
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token id
-def id_AFD():
-    idAFD = AFD()
-    idAFD.addState('', False, True)
-    idAFD.addState('char', True)
-    idAFD.setTransitions('', CharClasses.letters(), 'char')
-    idAFD.setTransitions('char', CharClasses.letters(), 'char')
-    idAFD.setTransitions('char', CharClasses.digits(), 'char')
-
-assert (TokenAFDs.OP_AFD().accepts('(') > 0)
-assert (TokenAFDs.OP_AFD().accepts('a(els)') == 0)
-print("TEST TOKEN (     ->  OK")
-# AFD for token basic
-def basic_AFD():
-    return getStringAFD('basic')
-    '''
+assert (TokenAFDs.basic_AFD().accepts('basic') > 0)
+assert (TokenAFDs.basic_AFD().accepts('a(elasdass)') == 0)
+print("TEST TOKEN basic ->  OK")
