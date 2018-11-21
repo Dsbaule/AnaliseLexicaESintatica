@@ -33,17 +33,41 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tabEditor">
        <attribute name="title">
         <string>Editor</string>
        </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEditEditor">
+          <property name="plainText">
+           <string>{
+	basic[19][18] = 15.26666;
+	if (test==19) then
+		test = 15.36
+	else
+		test = test + test
+	true false true
+}</string>
+          </property>
+          <property name="tabStopWidth">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="tabTabelaDeSimbolos">
        <attribute name="title">
-        <string>Tokens</string>
+        <string>Tabela de Símbolos</string>
        </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QTableWidget" name="tableTabelaDeSimbolos"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -62,24 +86,31 @@
     <property name="title">
      <string>Arquivo</string>
     </property>
-    <addaction name="actionNovo"/>
-    <addaction name="actionAbrir"/>
-    <addaction name="actionSalvar"/>
+    <addaction name="ButtonNew"/>
+    <addaction name="ButtonOpen"/>
+    <addaction name="ButtonSave"/>
+   </widget>
+   <widget class="QMenu" name="menuConfigura_es">
+    <property name="title">
+     <string>Configurações</string>
+    </property>
+    <addaction name="CheckBoxCleanTable"/>
    </widget>
    <addaction name="menuArquivo"/>
+   <addaction name="menuConfigura_es"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNovo">
+  <action name="ButtonNew">
    <property name="text">
     <string>Novo</string>
    </property>
   </action>
-  <action name="actionAbrir">
+  <action name="ButtonOpen">
    <property name="text">
     <string>Abrir</string>
    </property>
   </action>
-  <action name="actionSalvar">
+  <action name="ButtonSave">
    <property name="text">
     <string>Salvar</string>
    </property>
@@ -92,6 +123,17 @@
   <action name="actionAnalise_Sint_tica">
    <property name="text">
     <string>Analise Sintática</string>
+   </property>
+  </action>
+  <action name="CheckBoxCleanTable">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Clean Table</string>
    </property>
   </action>
  </widget>

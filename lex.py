@@ -40,9 +40,40 @@ class lexAnaliser:
         self.ws_AFD = TokenAFDs.ws_AFD()
         self.tb_AFD = TokenAFDs.tb_AFD()
 
-    def getNextToken(self, string):
+        self.input = ""
+        self.length = 0
+        self.index = 0
+        self.table = dict()
+
+        self.buffersize = 256
+
+    def setInput(self, string):
+        self.input = string
+        self.length = len(self.input)
+        self.index = 0
+        self.table.clear()
+
+    def getSymbolTable(self):
+        return self.table
+
+    def getCleanSymbolTable(self):
+        cleanTable = self.table.copy()
+        for token in ['\n',' ','\t']:
+            cleanTable.pop(token, None)
+        return cleanTable
+
+    def generateSymbolTable(self):
+        while(self.index < self.length):
+            (length, token) = self.getNextToken()
+            if length is 0:
+                break
+        return self.table
+
+    def getNextToken(self):
         longesttoken = 0
         token = 'Error'
+
+        string = self.input[self.index:(self.index + self.buffersize)]
 
         tokensize = self.OP_AFD.accepts(string)
         if tokensize > longesttoken:
@@ -189,8 +220,10 @@ class lexAnaliser:
             longesttoken = tokensize
             token = self.tb_AFD.getTokenName()
 
+        self.table[string[:longesttoken]] = token
+        self.index += longesttoken
         return (longesttoken, token)
-
+'''
 
 buffersize = 256 # buffersize in characters
 
@@ -239,3 +272,4 @@ print(printable + "\n")
 print ("{:<8} {:<16}".format('Lexema','Token'))
 for k, v in table.items():
     print ("{:<8} {:<16}".format(k if k is not '\n' else '\\n', v))
+'''
