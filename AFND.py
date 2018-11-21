@@ -26,7 +26,7 @@ class AFND:
                 self.addTransition(stateMap[stateFrom], symbol, stateMap[stateTo])
             self.addTransition('S', '&', stateMap[afd.initial])
             for state in afd.final:
-                self.tokenMap[state] = afd.getTokenName() 
+                self.tokenMap[state] = afd.getTokenName()
 
     def __str__(self):
         return \
@@ -89,16 +89,35 @@ class AFND:
 
     def accepts(self, word):
         last_accept = 0
+        accepting_states = set()
+
         steps = 0
-        current_state = self.initial
+
+        current_states = self.getEpsilonClosure({self.initial})
         for symbol in word:
-            current_state = self.transitions.get((current_state, symbol), None)
             steps += 1
-            if current_state not in self.states:
-                 return last_accept
-            if current_state in self.final:
+            next_states = set()
+            for state in current_states:
+                next_state = self.transitions.get((state, symbol), None)
+                if next_state is not None:
+                    next_states.update(next_state)
+            current_states = self.getEpsilonClosure(next_states)
+            cur_accepting_states = current_states.intersection(self.final)
+            if cur_accepting_states is not set():
                 last_accept = steps
-        return last_accept
+                accepting_states = cur_accepting_states.copy()
+
+        return (last_accept, [self.tokenMap[state] for state in accepting_states], accepting_states)
+
+    def getEpsilonClosure(self, states):
+        new_states = states
+        while True:
+            old_states = new_states
+            for state in old_states:
+                new_states = new_states.union(self.transitions.get((state, '&'), {}))
+            if new_states == old_states:
+                break
+        return new_states
 
     def clear(self):
         self.states = set()
