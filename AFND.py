@@ -1,4 +1,6 @@
-class AFD:
+from AFD import AFD
+
+class AFND:
     '''
     A Finite Automata FA is a quintuple (Q, E, T, S, F), where:
     Q is the set of states             (not necessary)
@@ -7,12 +9,17 @@ class AFD:
     S is the start state               (necessary)
     F is the final/accepting state     (necessary)
     '''
-    def __init__(self, tokenName = None, states = None, transitions = None, initial = None, final = None):
-        self.states = set() if states is None else states
-        self.transitions = dict() if transitions is None else transitions
-        self.initial = initial
-        self.final = set() if final is None else final
-        self.tokenName = tokenName
+    def __init__(self, afds):
+        self.addState('S', False, True)
+        for index, afd in enumerate(afds):
+            self.setTransition('S', '&', str(index) + afd.initial):
+            stateMap = dict()
+            for state in afd.states:
+                newState = str(index) + state
+                stateMap[state] = newState
+                self.addState(newState, afd.isFinal(state))
+            for (stateFrom, symbol), stateTo in afd.transitions.items():
+                self.setTransition(stateMap[stateFrom], symbol, stateMap[stateTo])
 
     def __str__(self):
         return \
@@ -20,12 +27,6 @@ class AFD:
         'Transitions: ' + str(self.transitions)  + '\n' + \
         'Initial: ' + str(self.initial)  + '\n' + \
         'Final: ' + str(self.final))
-
-    def setTokenName(self, tokenName):
-        self.tokenName = tokenName
-
-    def getTokenName(self, tokenName):
-        return self.tokenName
 
     def addState(self, state, final = False, initial = False):
         self.states.add(state)
@@ -56,9 +57,6 @@ class AFD:
         if state not in self.states:
             raise NameError('Invalid State: ' + state)
         self.initial = state
-
-    def isFinal(self, state):
-        return state in self.final
 
     def setTransition(self, stateFrom, symbol, stateTo):
         if stateFrom not in self.states:
