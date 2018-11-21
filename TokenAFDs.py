@@ -151,6 +151,18 @@ def id_AFD():
     idAFD.setTransitions('char', CharClasses.digits(), 'char')
     return idAFD
 
+# AFD for new line
+def nl_AFD():
+    return getStringAFD('\n')
+
+# AFD for whitespace (space and tab)
+def ws_AFD():
+    return getStringAFD(' ')
+
+# AFD for whitespace (space and tab)
+def tb_AFD():
+    return getStringAFD('\t')
+
 '''
     !!!!!!!!!!!!!!!!!!!!!!!!!!! VERIFICAR BASIC !!!!!!!!!!!!!!!!!!!!!!!!!!
 '''
