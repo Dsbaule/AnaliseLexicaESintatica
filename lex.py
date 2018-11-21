@@ -47,147 +47,147 @@ class lexAnaliser:
         tokensize = self.OP_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '('
+            token = self.OP_AFD.getTokenName()
         tokensize = self.CP_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = ')'
+            token = self.CP_AFD.getTokenName()
         tokensize = self.OB_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '['
+            token = self.OB_AFD.getTokenName()
         tokensize = self.CB_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = ']'
+            token = self.CB_AFD.getTokenName()
         tokensize = self.OCB_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '{'
+            token = self.OCB_AFD.getTokenName()
         tokensize = self.CCB_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '}'
+            token = self.CCB_AFD.getTokenName()
         tokensize = self.SC_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = ';'
+            token = self.SC_AFD.getTokenName()
         tokensize = self.OR_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '||'
+            token = self.OR_AFD.getTokenName()
         tokensize = self.AND_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '&&'
+            token = self.AND_AFD.getTokenName()
         tokensize = self.EQ_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '=='
+            token = self.EQ_AFD.getTokenName()
         tokensize = self.NEQ_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '!='
+            token = self.NEQ_AFD.getTokenName()
         tokensize = self.LT_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '<'
+            token = self.LT_AFD.getTokenName()
         tokensize = self.LE_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '<='
+            token = self.LE_AFD.getTokenName()
         tokensize = self.GE_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '>='
+            token = self.GE_AFD.getTokenName()
         tokensize = self.GT_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '>'
+            token = self.GT_AFD.getTokenName()
         tokensize = self.ATT_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '='
+            token = self.ATT_AFD.getTokenName()
         tokensize = self.PL_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '+'
+            token = self.PL_AFD.getTokenName()
         tokensize = self.MN_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '-'
+            token = self.MN_AFD.getTokenName()
         tokensize = self.MT_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '*'
+            token = self.MT_AFD.getTokenName()
         tokensize = self.DV_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '/'
+            token = self.DV_AFD.getTokenName()
         tokensize = self.NOT_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = '!'
+            token = self.NOT_AFD.getTokenName()
         tokensize = self.if_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'if'
+            token = self.if_AFD.getTokenName()
         tokensize = self.then_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'then'
+            token = self.then_AFD.getTokenName()
         tokensize = self.else_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'else'
+            token = self.else_AFD.getTokenName()
         tokensize = self.while_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'while'
+            token = self.while_AFD.getTokenName()
         tokensize = self.do_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'do'
+            token = self.do_AFD.getTokenName()
         tokensize = self.break_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'break'
+            token = self.break_AFD.getTokenName()
         tokensize = self.num_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'num'
+            token = self.num_AFD.getTokenName()
         tokensize = self.real_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'real'
+            token = self.real_AFD.getTokenName()
         tokensize = self.true_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'true'
+            token = self.true_AFD.getTokenName()
         tokensize = self.false_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'false'
+            token = self.false_AFD.getTokenName()
         tokensize = self.basic_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'basic'
+            token = self.basic_AFD.getTokenName()
         tokensize = self.id_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'id'
+            token = self.id_AFD.getTokenName()
         tokensize = self.nl_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'nl'
+            token = self.nl_AFD.getTokenName()
         tokensize = self.ws_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'ws'
+            token = self.ws_AFD.getTokenName()
         tokensize = self.tb_AFD.accepts(string)
         if tokensize > longesttoken:
             longesttoken = tokensize
-            token = 'tb'
+            token = self.tb_AFD.getTokenName()
 
         return (longesttoken, token)
 
@@ -201,20 +201,27 @@ codigo = """{
         test = 15.36
     else
         test = test + test
+    true false true
 }"""
 
 length = len(codigo)
 index = 0
 
+table = dict()
+
 lex = lexAnaliser()
 
+#print('\n\n\n')
 while(index < length):
     tokenlength, token = lex.getNextToken(codigo[index:(index + buffersize)])
     if tokenlength is 0:
         print("TOKEN INVALIDO ENCONTRADO")
         break
+    table[codigo[index:(index + tokenlength)]] = token
+    #print(str(token))
     index += tokenlength
     tokens.append(token)
+#print('\n\n\n')
 
 printable = ""
 for token in tokens:
@@ -227,5 +234,8 @@ for token in tokens:
     else:
         printable += token
 
-print(codigo)
-print(printable)
+print(codigo + "\n")
+print(printable + "\n")
+print ("{:<8} {:<16}".format('Lexema','Token'))
+for k, v in table.items():
+    print ("{:<8} {:<16}".format(k if k is not '\n' else '\\n', v))

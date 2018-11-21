@@ -16,103 +16,153 @@ def CP_AFD():
 
 # AFD for token [
 def OB_AFD():
-    return getStringAFD('[')
+    afd = getStringAFD('[')
+    afd.setTokenName('[')
+    return afd
 
 # AFD for token ]
 def CB_AFD():
-    return getStringAFD(']')
+    afd = getStringAFD(']')
+    afd.setTokenName(']')
+    return afd
 
 # AFD for token {
 def OCB_AFD():
-    return getStringAFD('{')
+    afd = getStringAFD('{')
+    afd.setTokenName('{')
+    return afd
 
 # AFD for token }
 def CCB_AFD():
-    return getStringAFD('}')
+    afd = getStringAFD('}')
+    afd.setTokenName('}')
+    return afd
 
 # AFD for token ;
 def SC_AFD():
-    return getStringAFD(';')
+    afd = getStringAFD(';')
+    afd.setTokenName(';')
+    return afd
 
 # AFD for token ||
 def OR_AFD():
-    return getStringAFD('||')
+    afd = getStringAFD('||')
+    afd.setTokenName('||')
+    return afd
 
 # AFD for token &&
 def AND_AFD():
-    return getStringAFD('&&')
+    afd = getStringAFD('&&')
+    afd.setTokenName('&&')
+    return afd
 
 # AFD for token ==
 def EQ_AFD():
-    return getStringAFD('==')
+    afd = getStringAFD('==')
+    afd.setTokenName('==')
+    return afd
 
 # AFD for token !=
 def NEQ_AFD():
-    return getStringAFD('!=')
+    afd = getStringAFD('!=')
+    afd.setTokenName('!=')
+    return afd
 
 # AFD for token <
 def LT_AFD():
-    return getStringAFD('<')
+    afd = getStringAFD('<')
+    afd.setTokenName('<')
+    return afd
 
 # AFD for token <=
 def LE_AFD():
-    return getStringAFD('<=')
+    afd = getStringAFD('<=')
+    afd.setTokenName('<=')
+    return afd
 
 # AFD for token >=
 def GE_AFD():
-    return getStringAFD('>=')
+    afd = getStringAFD('>=')
+    afd.setTokenName('>=')
+    return afd
 
 # AFD for token >
 def GT_AFD():
-    return getStringAFD('>')
+    afd = getStringAFD('>')
+    afd.setTokenName('>')
+    return afd
 
 # AFD for token =
 def ATT_AFD():
-    return getStringAFD('=')
+    afd = getStringAFD('=')
+    afd.setTokenName('=')
+    return afd
 
 # AFD for token +
 def PL_AFD():
-    return getStringAFD('+')
+    afd = getStringAFD('+')
+    afd.setTokenName('+')
+    return afd
 
 # AFD for token -
 def MN_AFD():
-    return getStringAFD('-')
+    afd = getStringAFD('-')
+    afd.setTokenName('-')
+    return afd
 
 # AFD for token *
 def MT_AFD():
-    return getStringAFD('*')
+    afd = getStringAFD('*')
+    afd.setTokenName('*')
+    return afd
 
 # AFD for token /
 def DV_AFD():
-    return getStringAFD('/')
+    afd = getStringAFD('/')
+    afd.setTokenName('/')
+    return afd
 
 # AFD for token !
 def NOT_AFD():
-    return getStringAFD('!')
+    afd = getStringAFD('!')
+    afd.setTokenName('!')
+    return afd
 
 # AFD for token if
 def if_AFD():
-    return getStringAFD('if')
+    afd = getStringAFD('if')
+    afd.setTokenName('if')
+    return afd
 
 # AFD for token then
 def then_AFD():
-    return getStringAFD('then')
+    afd = getStringAFD('then')
+    afd.setTokenName('then')
+    return afd
 
 # AFD for token else
 def else_AFD():
-    return getStringAFD('else')
+    afd = getStringAFD('else')
+    afd.setTokenName('else')
+    return afd
 
 # AFD for token while
 def while_AFD():
-    return getStringAFD('while')
+    afd = getStringAFD('while')
+    afd.setTokenName('while')
+    return afd
 
 # AFD for token do
 def do_AFD():
-    return getStringAFD('do')
+    afd = getStringAFD('do')
+    afd.setTokenName('do')
+    return afd
 
 # AFD for token break
 def break_AFD():
-    return getStringAFD('break')
+    afd = getStringAFD('break')
+    afd.setTokenName('break')
+    return afd
 
 # AFD for token num ([0-9])
 def num_AFD():
@@ -121,6 +171,7 @@ def num_AFD():
     num_AFD.addState('num', True)
     num_AFD.setTransitions('', CharClasses.digits(), 'num')
     num_AFD.setTransitions('num', CharClasses.digits(), 'num')
+    num_AFD.setTokenName('num')
     return num_AFD
 
 # AFD for token real ([0-9].[0-9])
@@ -135,15 +186,20 @@ def real_AFD():
     real_AFD.setTransitions('num', '.', 'num.')
     real_AFD.setTransitions('num.', CharClasses.digits(), 'num.num')
     real_AFD.setTransitions('num.num', CharClasses.digits(), 'num.num')
+    real_AFD.setTokenName('real')
     return real_AFD
 
 # AFD for token true
 def true_AFD():
-    return getStringAFD('true')
+    afd = getStringAFD('true')
+    afd.setTokenName('bool')
+    return afd
 
 # AFD for token false
 def false_AFD():
-    return getStringAFD('false')
+    afd = getStringAFD('false')
+    afd.setTokenName('bool')
+    return afd
 
 # AFD for token id
 def id_AFD():
@@ -153,26 +209,35 @@ def id_AFD():
     idAFD.setTransitions('', CharClasses.letters(), 'char')
     idAFD.setTransitions('char', CharClasses.letters(), 'char')
     idAFD.setTransitions('char', CharClasses.digits(), 'char')
+    idAFD.setTokenName('id')
     return idAFD
 
 # AFD for new line
 def nl_AFD():
-    return getStringAFD('\n')
+    afd = getStringAFD('\n')
+    afd.setTokenName('nl')
+    return afd
 
 # AFD for whitespace (space and tab)
 def ws_AFD():
-    return getStringAFD(' ')
+    afd = getStringAFD(' ')
+    afd.setTokenName('ws')
+    return afd
 
 # AFD for whitespace (space and tab)
 def tb_AFD():
-    return getStringAFD('\t')
+    afd = getStringAFD('\t')
+    afd.setTokenName('tb')
+    return afd
 
 '''
     !!!!!!!!!!!!!!!!!!!!!!!!!!! VERIFICAR BASIC !!!!!!!!!!!!!!!!!!!!!!!!!!
 '''
 # AFD for token basic
 def basic_AFD():
-    return getStringAFD('basic')
+    afd = getStringAFD('basic')
+    afd.setTokenName('basic')
+    return afd
 
 def getStringAFD(string):
     afd = AFD()
