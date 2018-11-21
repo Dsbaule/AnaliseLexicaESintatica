@@ -24,7 +24,7 @@ class AFD:
     def setTokenName(self, tokenName):
         self.tokenName = tokenName
 
-    def getTokenName(self, tokenName):
+    def getTokenName(self):
         return self.tokenName
 
     def addState(self, state, final = False, initial = False):

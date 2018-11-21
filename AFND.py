@@ -10,16 +10,23 @@ class AFND:
     F is the final/accepting state     (necessary)
     '''
     def __init__(self, afds):
-        self.addState('S', False, True)
+        self.states = set('S')
+        self.transitions = dict()
+        self.initial = 'S'
+        self.final = set()
+        self.tokenMap = dict()
+
         for index, afd in enumerate(afds):
-            self.setTransition('S', '&', str(index) + afd.initial):
             stateMap = dict()
             for state in afd.states:
                 newState = str(index) + state
                 stateMap[state] = newState
                 self.addState(newState, afd.isFinal(state))
             for (stateFrom, symbol), stateTo in afd.transitions.items():
-                self.setTransition(stateMap[stateFrom], symbol, stateMap[stateTo])
+                self.addTransition(stateMap[stateFrom], symbol, stateMap[stateTo])
+            self.addTransition('S', '&', stateMap[afd.initial])
+            for state in afd.final:
+                self.tokenMap[state] = afd.getTokenName() 
 
     def __str__(self):
         return \
@@ -63,7 +70,18 @@ class AFND:
             raise NameError('Invalid starting State!' + stateFrom)
         if stateTo not in self.states:
             raise NameError('Invalid end State!: ' + stateTo)
-        self.transitions.update({(stateFrom,symbol):stateTo})
+        self.transitions.update({(stateFrom,symbol):{stateTo}})
+
+    def addTransition(self, stateFrom, symbol, stateTo):
+        if stateFrom not in self.states:
+            raise NameError('Invalid starting State!' + stateFrom)
+        if stateTo not in self.states:
+            raise NameError('Invalid end State!: ' + stateTo)
+        transition = self.transitions.get((stateFrom, symbol), None)
+        if transition is None:
+            self.transitions[(stateFrom, symbol)] = {stateTo}
+        else:
+            transition.add(stateTo)
 
     def setTransitions(self, stateFrom, symbols, stateTo):
         for symbol in symbols:

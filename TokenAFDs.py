@@ -3,12 +3,16 @@ import CharClasses
 
 # AFD for token (
 def OP_AFD():
-    return getStringAFD('(')
+    afd = getStringAFD('(')
+    afd.setTokenName('(')
+    return afd
 
 # AFD for token )
 def CP_AFD():
     #print( str(getStringAFD(')')))
-    return getStringAFD(')')
+    afd = getStringAFD(')')
+    afd.setTokenName(')')
+    return afd
 
 # AFD for token [
 def OB_AFD():
