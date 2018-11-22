@@ -17,10 +17,17 @@ class MainWindow(QMainWindow):
         self.CheckBoxCleanTable.triggered.connect(self.CleanTableClicked)
         self.CheckBoxShowSecondary.triggered.connect(self.ShowSecondaryClicked)
         self.plainTextEditEditor.textChanged.connect(self.UpdateSecondary)
+        self.plainTextEditEditor.textChanged.connect(self.setUnsaved)
         self.tabWidget2.hide()
 
         self.lex =lexAnaliser()
+        self.saved = True
 
+    def setUnsaved(self):
+        self.saved = False if self.plainTextEditEditor.toPlainText() is not '' else True
+
+    def setSaved(self):
+        self.saved = True
 
     def TabChanged(self):
         currentTab = self.tabWidget.currentIndex()
@@ -39,13 +46,38 @@ class MainWindow(QMainWindow):
             self.updateTokens(self.plainTextEditEditorTokens2, self.CheckBoxCleanTable.isChecked())
 
     def NewFile(self):
-        None
+        if not self.saved:
+            if QMessageBox.question(self, 'Criar novo?', 'As mudanças não salvas serão perdidas!',  QMessageBox.Yes,  QMessageBox.No) != QMessageBox.Yes:
+                return
+        self.plainTextEditEditor.setPlainText('')
 
     def SaveFile(self):
-        None
+        (filepath,filter) = QFileDialog.getSaveFileName(self, "Selecione o arquivo:", "", "txt (*.txt)")
+        if filepath == '':
+            return
+        try:
+            file = open(filepath, 'w')
+            file.write(self.plainTextEditEditor.toPlainText())
+            file.close()
+            self.setSaved()
+        except:
+            QMessageBox.critical(self, 'Erro!', 'Não foi possível abrir o arquivo selecionado')
 
     def OpenFile(self):
-        None
+        if not self.saved:
+            if QMessageBox.question(self, 'Criar novo?', 'As mudanças não salvas serão perdidas!',  QMessageBox.Yes,  QMessageBox.No) != QMessageBox.Yes:
+                return
+        (filepath,filter) = QFileDialog.getOpenFileName(self, "Selecione o arquivo:", "", "txt (*.txt)")
+        if filepath == '':
+            return
+        try:
+            file = open(filepath, 'r')
+            self.plainTextEditEditor.setPlainText(file.read())
+            file.close()
+            self.tabWidget.setCurrentIndex(0)
+            self.setSaved()
+        except:
+            QMessageBox.critical(self, 'Erro!', 'Não foi possível abrir o arquivo selecionado')
 
     def CleanTableClicked(self):
         currentTab = self.tabWidget2.currentIndex()
