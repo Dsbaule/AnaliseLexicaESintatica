@@ -79,7 +79,9 @@ class lexAnaliser:
                 self.panicRecovery()
 
     def panicRecovery(self):
-        while self.input[self.index] not in self.syncTokens and self.index < self.length:
+        while self.index < self.length:
+            if self.input[self.index] in self.syncTokens:
+                break
             self.index += 1
 
     def getNextToken(self):
