@@ -14,22 +14,7 @@
    <string>Analise Léxica e Sintática</string>
   </property>
   <widget class="QWidget" name="mainWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -69,13 +54,50 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tabTokens_2">
+      <widget class="QWidget" name="tabTokens">
        <attribute name="title">
         <string>Tokens</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QPlainTextEdit" name="plainTextEditEditorTokens">
+          <property name="plainText">
+           <string/>
+          </property>
+          <property name="tabStopWidth">
+           <number>20</number>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget2">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tabTabelaDeSimbolos2">
+       <attribute name="title">
+        <string>Tabela de Símbolos</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QTableWidget" name="tableTabelaDeSimbolos2"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabTokens2">
+       <attribute name="title">
+        <string>Tokens</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEditEditorTokens2">
           <property name="plainText">
            <string/>
           </property>
@@ -116,8 +138,15 @@
     </property>
     <addaction name="CheckBoxCleanTable"/>
    </widget>
+   <widget class="QMenu" name="menuVis_o">
+    <property name="title">
+     <string>Visão</string>
+    </property>
+    <addaction name="CheckBoxShowSecondary"/>
+   </widget>
    <addaction name="menuArquivo"/>
    <addaction name="menuConfigura_es"/>
+   <addaction name="menuVis_o"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="ButtonNew">
@@ -154,6 +183,14 @@
    </property>
    <property name="text">
     <string>Clean Table</string>
+   </property>
+  </action>
+  <action name="CheckBoxShowSecondary">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mostrar Secundaria</string>
    </property>
   </action>
  </widget>
