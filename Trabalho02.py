@@ -24,6 +24,8 @@ class MainWindow(QMainWindow):
             None
         elif currentTab is 1:
             self.updateSymbolTable(self.CheckBoxCleanTable.isChecked())
+        elif currentTab is 2:
+            self.updateTokens()
 
     def NewFile(self):
         None
@@ -42,7 +44,7 @@ class MainWindow(QMainWindow):
         codigo = self.plainTextEditEditor.toPlainText()
 
         self.lex.setInput(codigo)
-        self.lex.generateSymbolTable()
+        self.lex.generateAllTokens()
 
 
         symbolTable = self.lex.getCleanSymbolTable() if clean else self.lex.getSymbolTable()
@@ -50,11 +52,37 @@ class MainWindow(QMainWindow):
         self.tableTabelaDeSimbolos.setColumnCount(2)
         self.tableTabelaDeSimbolos.setRowCount(len(symbolTable))
 
+        newitem = QTableWidgetItem('Lexemas')
+        self.tableTabelaDeSimbolos.setItem(0, 0, newitem)
+        newitem = QTableWidgetItem('Tokens')
+        self.tableTabelaDeSimbolos.setItem(0, 1, newitem)
+
         for row, (key, value) in enumerate(symbolTable.items()):
             newitem = QTableWidgetItem(key)
             self.tableTabelaDeSimbolos.setItem(row + 1, 0, newitem)
             newitem = QTableWidgetItem(value)
             self.tableTabelaDeSimbolos.setItem(row + 1, 1, newitem)
+
+    def updateTokens(self):
+        codigo = self.plainTextEditEditor.toPlainText()
+
+        self.lex.setInput(codigo)
+        self.lex.generateAllTokens()
+
+        tokens = self.lex.getTokens()
+
+        printable = ""
+        for token in tokens:
+            if token is 'ws':
+                printable += ' '
+            elif token is 'tb':
+                printable += '\t'
+            elif token is 'nl':
+                printable += '\n'
+            else:
+                printable += token
+
+        self.plainTextEditEditorTokens.setPlainText(printable)
 
 
 app = QApplication(sys.argv)

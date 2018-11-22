@@ -44,6 +44,7 @@ class lexAnaliser:
         self.length = 0
         self.index = 0
         self.table = dict()
+        self.tokens = list()
 
         self.buffersize = 256
 
@@ -52,6 +53,7 @@ class lexAnaliser:
         self.length = len(self.input)
         self.index = 0
         self.table.clear()
+        self.tokens.clear()
 
     def getSymbolTable(self):
         return self.table
@@ -62,12 +64,18 @@ class lexAnaliser:
             cleanTable.pop(token, None)
         return cleanTable
 
-    def generateSymbolTable(self):
+    def getTokens(self):
+        return self.tokens
+
+    def getCleanTokens(self):
+        return [token for token in self.tokens if token not in ['ws','tb','nl']]
+
+
+    def generateAllTokens(self):
         while(self.index < self.length):
             (length, token) = self.getNextToken()
             if length is 0:
                 break
-        return self.table
 
     def getNextToken(self):
         longesttoken = 0
@@ -221,6 +229,7 @@ class lexAnaliser:
             token = self.tb_AFD.getTokenName()
 
         self.table[string[:longesttoken]] = token
+        self.tokens.append(token)
         self.index += longesttoken
         return (longesttoken, token)
 '''

@@ -69,6 +69,26 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tabTokens_2">
+       <attribute name="title">
+        <string>Tokens</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEditEditorTokens">
+          <property name="plainText">
+           <string/>
+          </property>
+          <property name="tabStopWidth">
+           <number>20</number>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
