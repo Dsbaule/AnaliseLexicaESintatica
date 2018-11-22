@@ -29,14 +29,14 @@ class MainWindow(QMainWindow):
         elif currentTab is 1:
             self.updateSymbolTable(self.tableTabelaDeSimbolos, self.CheckBoxCleanTable.isChecked())
         elif currentTab is 2:
-            self.updateTokens(self.plainTextEditEditorTokens)
+            self.updateTokens(self.plainTextEditEditorTokens, self.CheckBoxCleanTable.isChecked())
 
     def TabChanged2(self):
         currentTab = self.tabWidget2.currentIndex()
         if currentTab is 0:
             self.updateSymbolTable(self.tableTabelaDeSimbolos2, self.CheckBoxCleanTable.isChecked())
         elif currentTab is 1:
-            self.updateTokens(self.plainTextEditEditorTokens2)
+            self.updateTokens(self.plainTextEditEditorTokens2, self.CheckBoxCleanTable.isChecked())
 
     def NewFile(self):
         None
@@ -48,10 +48,17 @@ class MainWindow(QMainWindow):
         None
 
     def CleanTableClicked(self):
-        if self.tabWidget.currentIndex() is 1:
+        currentTab = self.tabWidget2.currentIndex()
+        if currentTab is 1:
             self.updateSymbolTable(self.tableTabelaDeSimbolos, self.CheckBoxCleanTable.isChecked())
-        if self.tabWidget2.currentIndex() is 0:
+        elif currentTab is 2:
+            self.updateTokens(self.plainTextEditEditorTokens, self.CheckBoxCleanTable.isChecked())
+
+        currentTab = self.tabWidget2.currentIndex()
+        if currentTab is 0:
             self.updateSymbolTable(self.tableTabelaDeSimbolos2, self.CheckBoxCleanTable.isChecked())
+        elif currentTab is 1:
+            self.updateTokens(self.plainTextEditEditorTokens2, self.CheckBoxCleanTable.isChecked())
 
     def ShowSecondaryClicked(self):
         if self.CheckBoxShowSecondary.isChecked():
@@ -72,7 +79,7 @@ class MainWindow(QMainWindow):
             if currentTab is 0:
                 self.updateSymbolTable(self.tableTabelaDeSimbolos2, self.CheckBoxCleanTable.isChecked())
             elif currentTab is 1:
-                self.updateTokens(self.plainTextEditEditorTokens2)
+                self.updateTokens(self.plainTextEditEditorTokens2, self.CheckBoxCleanTable.isChecked())
 
     def updateSymbolTable(self, table, clean = True):
         codigo = self.plainTextEditEditor.toPlainText()
@@ -96,7 +103,7 @@ class MainWindow(QMainWindow):
             newitem = QTableWidgetItem(value)
             table.setItem(row + 1, 1, newitem)
 
-    def updateTokens(self, textEdit):
+    def updateTokens(self, textEdit, clean = False):
         codigo = self.plainTextEditEditor.toPlainText()
 
         self.lex.setInput(codigo)
@@ -112,6 +119,9 @@ class MainWindow(QMainWindow):
                 printable += '\t'
             elif token is 'nl':
                 printable += '\n'
+            elif token is 'Error':
+                if not clean:
+                    printable += 'Error'
             else:
                 printable += token
 
