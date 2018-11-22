@@ -47,6 +47,7 @@ class lexAnaliser:
         self.tokens = list()
 
         self.buffersize = 256
+        self.syncTokens = ['\n','\t',' ','{','}','[',']','(',')',';']
 
     def setInput(self, string):
         self.input = string
@@ -75,7 +76,11 @@ class lexAnaliser:
         while(self.index < self.length):
             (length, token) = self.getNextToken()
             if length is 0:
-                break
+                self.panicRecovery()
+
+    def panicRecovery(self):
+        while self.input[self.index] not in self.syncTokens and self.index < self.length:
+            self.index += 1
 
     def getNextToken(self):
         longesttoken = 0

@@ -83,7 +83,7 @@ class MainWindow(QMainWindow):
         symbolTable = self.lex.getCleanSymbolTable() if clean else self.lex.getSymbolTable()
 
         table.setColumnCount(2)
-        table.setRowCount(len(symbolTable))
+        table.setRowCount(len(symbolTable) + 1)
 
         newitem = QTableWidgetItem('Lexemas')
         table.setItem(0, 0, newitem)

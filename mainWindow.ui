@@ -79,7 +79,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget2">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabTabelaDeSimbolos2">
        <attribute name="title">
@@ -190,7 +190,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Mostrar Secundaria</string>
+    <string>Lado a lado</string>
    </property>
   </action>
  </widget>
