@@ -61,15 +61,16 @@ class lexAnaliser:
 
     def getCleanSymbolTable(self):
         cleanTable = self.table.copy()
-        for token in ['\n',' ','\t']:
-            cleanTable.pop(token, None)
+        for lexeme, token in self.table.items():
+            if token in ['ws','tb','nl','Error']:
+                cleanTable.pop(lexeme, None)
         return cleanTable
 
     def getTokens(self):
         return self.tokens
 
     def getCleanTokens(self):
-        return [token for token in self.tokens if token not in ['ws','tb','nl']]
+        return [token for token in self.tokens if token not in ['ws','tb','nl','Error']]
 
 
     def generateAllTokens(self):
