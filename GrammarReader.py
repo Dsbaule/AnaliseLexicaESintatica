@@ -8,12 +8,15 @@ Context Free Grammar Reader
         <stmt> ::= <loc> = <bool> ; | <if> | while ( <bool> ) <stmt> | do <stmt> while ( <bool> ) ; | break ; | <block>
 '''
 
+from CFG import CFG
+
 def readGrammar(string):
 
     alphabet = set()
     nonTerminals = set()
     terminals = set()
     productions = dict()
+    startingSymbol = None
 
     lines = string.split('\n')
     for line in lines:
@@ -21,6 +24,8 @@ def readGrammar(string):
         nonTerminal = symbols[0]
         if nonTerminal is '':
             continue
+        if startingSymbol is None:
+            startingSymbol = nonTerminal
         nonTerminals.add(nonTerminal)
         currentProductions = productions.get(nonTerminal, list())
         production = list()
@@ -36,22 +41,12 @@ def readGrammar(string):
 
     terminals = alphabet.difference(nonTerminals)
 
-
-    print(str(symbols))
-    print(str(nonTerminals))
-    print(str(terminals))
-    print ("{:<15} {:<100}".format('NaoTerminal','Producao'))
-    for k, v in productions.items():
-        print ("{:<15} {:<100}".format(k, str(v[0])))
-        if len(v) > 1:
-            for value in v[1:]:
-                print ("{:<15} {:<100}".format(' ', str(value)))
-
+    return CFG(startingSymbol, terminals, nonTerminals, productions)
 
 file = open('.\\Grammar.txt', 'r')
 string = file.read()
 file.close()
 
 # newString = readGrammar('<stmt> ::= <loc> = <bool> ; | <if> | while ( <bool> ) <stmt> | do <stmt> while ( <bool> ) ; | break ; | <block>')
-newString = readGrammar(string)
-print(string)
+grammar = readGrammar(string)
+print(str(grammar))
