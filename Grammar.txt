@@ -5,7 +5,7 @@
 <type> ::= basic <types>
 <types> ::= [ num ] <types> | &
 <stmts> ::= <stmt> <stmts> | &
-<stmt> ::= <loc> = <bool> ; | <open_if> | while ( <bool> ) <stmt> | do <stmt> while ( <bool> ) ; |  break ; | <block>
+<stmt> ::= <loc> = <bool> ; | <open_if> | while ( <bool> ) <stmt> | do <stmt> while ( <bool> ) ; | break ; | <block>
 <open_if> ::= if ( <bool> ) then <stmt>
 <loc> ::= id <locs>
 <locs> ::= [ <bool> ] <locs> | &
