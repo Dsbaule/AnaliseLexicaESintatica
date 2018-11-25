@@ -42,7 +42,7 @@ def readGrammar(string):
     terminals = alphabet.difference(nonTerminals)
 
     return CFG(startingSymbol, terminals, nonTerminals, productions)
-
+'''
 file = open('.\\Grammar.txt', 'r')
 string = file.read()
 file.close()
@@ -50,3 +50,4 @@ file.close()
 # newString = readGrammar('<stmt> ::= <loc> = <bool> ; | <if> | while ( <bool> ) <stmt> | do <stmt> while ( <bool> ) ; | break ; | <block>')
 grammar = readGrammar(string)
 print(str(grammar))
+'''

@@ -6,9 +6,6 @@ class CFG:
         self.nonTerminals = nonTerminals
         self.productions = productions
         self.first = dict()
-        self.first['&'] = {'&'}
-        for symbol in self.terminals:
-            self.first[symbol] = {symbol}
         for symbol in self.nonTerminals:
             self.first[symbol] = set()
         self.follow = dict()
@@ -53,7 +50,7 @@ class CFG:
             for nonTerminal, productions in self.productions.items():
                 for production in productions:
                     for symbol in production:
-                        first = self.first[symbol]
+                        first = self.getSymbolFirst(symbol)
                         # print("\t{:<15} {:<30} {:<100}\n".format(nonTerminal, symbol, str(first)))
                         self.first[nonTerminal].update(first)
                         if '&' not in first:
@@ -64,6 +61,11 @@ class CFG:
                     break
             if done:
                 break
+
+    def getSymbolFirst(self, symbol):
+        if symbol in self.terminals or symbol is '&':
+            return {symbol}
+        return self.first[symbol]
 
     def getFirst(self):
         return self.first

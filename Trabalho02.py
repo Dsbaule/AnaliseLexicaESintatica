@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTableWidgetItem, QTableWidget, QMessageBox, QListWidget, QListWidgetItem, QFileDialog
 from PyQt5.uic import loadUi
 from lex import lexAnaliser
+import GrammarReader
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -23,6 +24,11 @@ class MainWindow(QMainWindow):
         self.lex =lexAnaliser()
         self.saved = True
 
+        file = open('.\\Grammar.txt', 'r')
+        self.grammar = GrammarReader.readGrammar(file.read())
+        file.close()
+
+
     def setUnsaved(self):
         self.saved = False if self.plainTextEditEditor.toPlainText() is not '' else True
 
@@ -37,6 +43,12 @@ class MainWindow(QMainWindow):
             self.updateSymbolTable(self.tableTabelaDeSimbolos, self.CheckBoxCleanTable.isChecked())
         elif currentTab is 2:
             self.updateTokens(self.plainTextEditEditorTokens, self.CheckBoxCleanTable.isChecked())
+        elif currentTab is 3:
+            self.updateFirst()
+        elif currentTab is 4:
+            self.updateFollow()
+        elif currentTab is 5:
+            None
 
     def TabChanged2(self):
         currentTab = self.tabWidget2.currentIndex()
@@ -158,6 +170,23 @@ class MainWindow(QMainWindow):
                 printable += token
 
         textEdit.setPlainText(printable)
+
+    def updateFirst(self):
+        firstDict = self.grammar.getFirst()
+
+        self.tableFirst.setColumnCount(2)
+        self.tableFirst.setRowCount(len(self.grammar.nonTerminals) + 1)
+
+        newitem = QTableWidgetItem('X')
+        self.tableFirst.setItem(0, 0, newitem)
+        newitem = QTableWidgetItem('FIRST(X)')
+        self.tableFirst.setItem(0, 1, newitem)
+
+        for row, (symbol, first) in enumerate(firstDict.items()):
+            newitem = QTableWidgetItem(symbol)
+            self.tableFirst.setItem(row + 1, 0, newitem)
+            newitem = QTableWidgetItem(str(first))
+            self.tableFirst.setItem(row + 1, 1, newitem)
 
 
 app = QApplication(sys.argv)
