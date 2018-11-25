@@ -1,0 +1,91 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = String
+Parser = SLR
+#RegularDefinitions
+
+#Tokens
+"("
+")"
+"["
+"]"
+"{"
+"}"
+";"
+"||"
+"&&"
+"=="
+"!="
+"<"
+"<="
+">="
+">"
+"="
+"+"
+"-"
+"*"
+"/"
+"!"
+if
+then
+else
+while
+do
+break
+num
+real
+true
+false
+id
+basic
+#NonTerminals
+<program>
+<block>
+<decls>
+<decl>
+<type>
+<types>
+<stmts>
+<stmt>
+<if>
+<loc>
+<locs>
+<bool>
+<join>
+<equality>
+<rel>
+<expr>
+<exprs>
+<term>
+<terms>
+<unary>
+<factor>
+#Grammar
+<program> ::= <block>;
+<block> ::= "{" <decls> <stmts> "}";
+<decls> ::= <decl> <decls> | î;
+<decl> ::= <type> id ";";
+<type> ::= basic <types>;
+<types> ::= "[" num "]" <types> | î;
+<stmts> ::= <stmt> <stmts> | î;
+<stmt> ::= <loc> "=" <bool> ";" | <if> | while "(" <bool> ")" <stmt> | do <stmt> while "(" <bool> ")" ";" | break ";" | <block>;
+<if> ::= if "(" <bool> ")" then <stmt> else <stmt>;
+<loc> ::= id <locs>;
+<locs> ::= "[" <bool> "]" <locs> | î;
+<bool> ::= <join> | <join> "||" <bool>;
+<join> ::= <equality> | <equality> "&&" <join>;
+<equality> ::= <rel> | <rel> "==" <equality> | <rel> "!=" <equality>;
+<rel> ::= <expr> "<" <expr> | <expr> "<=" <expr> | <expr> ">=" <expr> | <expr> ">" <expr> | <expr>;
+<expr> ::= <term> <exprs>;
+<exprs> ::= "+" <term> <exprs> | "-" <term> <exprs> | î;
+<term> ::= <unary> <terms>;
+<terms> ::= "*" <unary> <terms> | "/" <unary> <terms> | î;
+<unary> ::= "!" <unary> | "-" <unary> | <factor>;
+<factor> ::= "(" <bool> ")" | <loc> | num | real | true | false;
