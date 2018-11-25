@@ -64,3 +64,9 @@ class CFG:
                     break
             if done:
                 break
+
+    def getFirst(self):
+        return self.first
+
+    def getFollow(self):
+        return self.follow
