@@ -5,17 +5,21 @@
 <type> ::= basic <types>
 <types> ::= [ num ] <types> | &
 <stmts> ::= <stmt> <stmts> | &
-<stmt> ::= <loc> = <bool> ; | <if> | while ( <bool> ) <stmt> | do <stmt> while ( <bool> ) ; | break ; | <block>
-<if> ::= if ( <bool> ) then <stmt> else <stmt>
+<stmt> ::= <loc> = <bool> ; | <open_if> | while ( <bool> ) <stmt> | do <stmt> while ( <bool> ) ; |  break ; | <block>
+<open_if> ::= if ( <bool> ) then <stmt>
 <loc> ::= id <locs>
 <locs> ::= [ <bool> ] <locs> | &
-<bool> ::= <join> | <join> || <bool>
-<join> ::= <equality> | <equality> && <join>
-<equality> ::= <rel> | <rel> == <equality> | <rel> != <equality>
-<rel> ::= <expr> < <expr> | <expr> <= <expr> | <expr> >= <expr> | <expr> > <expr> | <expr>
+<bool> ::= <join> <bool_>
+<join> ::= <equality> <join_>
+<equality> ::= <rel> <equality_>
+<rel> ::= <expr> <rel_>
 <expr> ::= <term> <exprs>
 <exprs> ::= + <term> <exprs> | - <term> <exprs> | &
 <term> ::= <unary> <terms>
 <terms> ::= * <unary> <terms> | / <unary> <terms> | &
 <unary> ::= ! <unary> | - <unary> | <factor>
 <factor> ::= ( <bool> ) | <loc> | num | real | true | false
+<bool_> ::= & | || <bool>
+<join_> ::= & | && <join>
+<equality_> ::= & | == <equality> | != <equality>
+<rel_> ::= < <expr> | <= <expr> | >= <expr> | > <expr> | &
