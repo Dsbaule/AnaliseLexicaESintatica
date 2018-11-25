@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         elif currentTab is 4:
             self.updateFollow()
         elif currentTab is 5:
-            None
+            self.updateParseTree()
 
     def TabChanged2(self):
         currentTab = self.tabWidget2.currentIndex()
@@ -187,6 +187,56 @@ class MainWindow(QMainWindow):
             self.tableFirst.setItem(row + 1, 0, newitem)
             newitem = QTableWidgetItem(str(first))
             self.tableFirst.setItem(row + 1, 1, newitem)
+
+    def updateParseTree(self):
+        parsing = [ \
+            ('<program>',['<block>']),
+            ('<block>',['{','<decls>','<stmts>','}']),
+            ('<decls>',['&']),
+            ('<stmts>',['break', ';'])
+        ]
+
+        if len(parsing) is 0:
+            return
+
+        self.sintTable.setColumnCount(2)
+        self.sintTable.setRowCount(len(parsing) + 2)
+
+        newitem = QTableWidgetItem('X')
+        self.sintTable.setItem(0, 0, newitem)
+        newitem = QTableWidgetItem('Production:')
+        self.sintTable.setItem(0, 1, newitem)
+
+        index = 0
+        derivation = [parsing[0][0]]
+
+        for row, (head, production) in enumerate(parsing):
+
+            string = derivation[0]
+            for symbol in derivation[1:]:
+                string += ' ' + symbol
+            newitem = QTableWidgetItem(string)
+            self.sintTable.setItem(row + 1, 0, newitem)
+
+            string = head + ' ::='
+            for symbol in production:
+                string += ' ' + symbol
+            newitem = QTableWidgetItem(string)
+            self.sintTable.setItem(row + 1, 1, newitem)
+
+            while derivation[index] is not head:
+                index += 1
+                if index >= len(derivation):
+                    return
+
+            derivation = derivation[:index] + production + derivation[index+1:]
+
+        string = derivation[0]
+        for symbol in derivation[1:]:
+            string += ' ' + symbol
+        newitem = QTableWidgetItem(string)
+        self.sintTable.setItem(len(parsing) + 1, 0, newitem)
+
 
 
 app = QApplication(sys.argv)
