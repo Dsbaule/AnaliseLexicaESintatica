@@ -1,0 +1,12 @@
+Executar com comandos:
+
+Windows:
+	python Trabalho02.py
+Linux:
+	python3 Trabalho02.py
+
+Grupo:
+- (16200639) Daniel de Souza Baulé
+- (16100720) Daniel Scariot Guterres
+- (16100733) Guilherme de Moraes Bueno
+- (13106344) Junior Semerzier
