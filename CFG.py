@@ -15,7 +15,13 @@ class CFG:
             self.follow[symbol] = set()
         self.follow[self.startingSymbol].add('$')
 
-        self.table = dict()
+        self.parsingTable = dict()
+        for nonTerminal in self.nonTerminals:
+            self.parsingTable[nonTerminal] = dict()
+            for terminal in self.terminals:
+                self.parsingTable[nonTerminal][terminal] = list()
+            self.parsingTable[nonTerminal]['$'] = list()
+
         self.generateTable()
 
     def __str__(self):
@@ -49,6 +55,18 @@ class CFG:
         self.generateFirst()
         self.generateFollow()
 
+        for nonTerminal, productions in self.productions.items():
+            for production in productions:
+                first = self.getProductionFirst(production)
+                for symbol in first:
+                    if symbol is '&':
+                        for symbol in self.follow[nonTerminal]:
+                            self.parsingTable[nonTerminal][symbol].append(production)
+                    else:
+                        self.parsingTable[nonTerminal][symbol].append(production)
+
+
+
     def generateFirst(self):
         oldFirst = dict()
 
@@ -59,10 +77,12 @@ class CFG:
                 oldFirst[nonTerminal] = self.first[nonTerminal].copy()
             for nonTerminal, productions in self.productions.items():
                 for production in productions:
-                    for symbol in production:
-                        first = self.getSymbolFirst(symbol)
-                        # print("\t{:<15} {:<30} {:<100}\n".format(nonTerminal, symbol, str(first)))
-                        self.first[nonTerminal].update(first)
+                    for index in range(len(production) + 1):
+                        if index >= len(production):
+                            self.first[nonTerminal].add('&')
+                            break
+                        first = self.getSymbolFirst(production[index])
+                        self.first[nonTerminal].update(first - {'&'})
                         if '&' not in first:
                             break
             for nonTerminal in self.nonTerminals:
@@ -104,12 +124,22 @@ class CFG:
             if done:
                 break
 
-
-
     def getSymbolFirst(self, symbol):
         if symbol in self.terminals or symbol is '&':
             return {symbol}
         return self.first[symbol]
+
+    def getProductionFirst(self, production):
+        productionFirst = set()
+        for index in range(len(production) + 1):
+            if index >= len(production):
+                productionFirst.add('&')
+                break
+            first = self.getSymbolFirst(production[index])
+            productionFirst.update(first - {'&'})
+            if '&' not in first:
+                break
+        return productionFirst
 
     def getFirst(self):
         return self.first
