@@ -49,6 +49,18 @@ class CFG:
         for nonTerminal in self.nonTerminals:
             string += "\t{:<15} {:<80}\n".format(nonTerminal, str(self.follow[nonTerminal]))
         string += '\n'
+        string += 'Parsing Table:\n'
+
+        string += "\t{:<15}".format(' ')
+        for terminal in self.terminals:
+            string += "{:<30}".format(terminal)
+        string += "{:<30}".format('$')
+        for nonTerminal in self.nonTerminals:
+            string += "\n\t{:<15}".format(nonTerminal)
+            for terminal in self.terminals:
+                string += "{:<30}".format(str(self.parsingTable[nonTerminal][terminal]))
+            string += "{:<30}".format(str(self.parsingTable[nonTerminal]['$']))
+
         return string
 
     def generateTable(self):
@@ -146,3 +158,6 @@ class CFG:
 
     def getFollow(self):
         return self.follow
+
+    def getParsingTable(self):
+        return self.parsingTable

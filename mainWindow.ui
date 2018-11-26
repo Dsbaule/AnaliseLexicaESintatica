@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabEditor">
        <attribute name="title">
@@ -91,6 +91,22 @@
        <layout class="QHBoxLayout" name="horizontalLayout_10">
         <item>
          <widget class="QTableWidget" name="tableFollow"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabParsingTable">
+       <attribute name="title">
+        <string>Parsing Table</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <widget class="QTableWidget" name="tableParsingTable">
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

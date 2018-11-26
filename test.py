@@ -1,6 +1,6 @@
 import GrammarReader
 
-file = open('.\\Grammar2.txt', 'r')
+file = open('.\\Grammar.txt', 'r')
 string = file.read()
 file.close()
 

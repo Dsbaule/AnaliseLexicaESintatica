@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         self.plainTextEditEditor.textChanged.connect(self.setUnsaved)
         self.tabWidget2.hide()
 
-        self.lex =lexAnaliser()
+        self.lex = lexAnaliser()
         self.saved = True
 
         file = open('.\\Grammar.txt', 'r')
@@ -48,6 +48,8 @@ class MainWindow(QMainWindow):
         elif currentTab is 4:
             self.updateFollow()
         elif currentTab is 5:
+            self.updateParsingTable()
+        elif currentTab is 6:
             self.updateParseTree()
 
     def TabChanged2(self):
@@ -209,6 +211,40 @@ class MainWindow(QMainWindow):
 
         self.tableFollow.resizeColumnsToContents()
 
+    def updateParsingTable(self):
+        table = self.grammar.getParsingTable()
+
+        self.tableParsingTable.setColumnCount(len(self.grammar.terminals) + 2)
+        self.tableParsingTable.setRowCount(len(self.grammar.nonTerminals) + 1)
+
+        terminals = list(self.grammar.terminals)
+        terminals.sort()
+
+        for column, terminal in enumerate(terminals):
+            newitem = QTableWidgetItem(terminal)
+            self.tableParsingTable.setItem(0, column + 1, newitem)
+
+        newitem = QTableWidgetItem('$')
+        self.tableParsingTable.setItem(0, len(self.grammar.terminals) + 1, newitem)
+
+        for row, nonTerminal in enumerate(self.grammar.nonTerminals):
+            newitem = QTableWidgetItem(nonTerminal)
+            self.tableParsingTable.setItem(row + 1, 0, newitem)
+            for column, terminal in enumerate(terminals):
+                prod = table[nonTerminal][terminal]
+                if len(prod) is not 0:
+                    string = ""
+                    for symbol in prod[0]:
+                        string += symbol + ' '
+                    if len(prod) > 1:
+                        for singleprod in prod[1:]:
+                            string += ' !!!!!!!!!!!!!!!!!!!!!!!!!! '
+                            for symbol in singleprod:
+                                string += symbol + ' '
+                    newitem = QTableWidgetItem(str(string))
+                    self.tableParsingTable.setItem(row + 1, column + 1, newitem)
+        self.tableParsingTable.resizeColumnsToContents()
+
     def updateParseTree(self):
         parsing = [ \
             ('<program>',['<block>']),
@@ -257,8 +293,6 @@ class MainWindow(QMainWindow):
             string += ' ' + symbol
         newitem = QTableWidgetItem(string)
         self.sintTable.setItem(len(parsing) + 1, 0, newitem)
-
-
 
 app = QApplication(sys.argv)
 window = MainWindow()
