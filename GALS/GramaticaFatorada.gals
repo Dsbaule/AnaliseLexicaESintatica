@@ -95,5 +95,5 @@ basic
 <factor> ::= "(" <bool> ")" | <loc> | num | real | true | false;
 <bool_> ::= î | "||" <bool>;
 <join_> ::= î | "&&" <join>;
-<equality_> ::= î | "=" <equality> | "!=" <equality>;
+<equality_> ::= î | "==" <equality> | "!=" <equality>;
 <rel_> ::= "<" <expr> | "<=" <expr> | ">=" <expr> | ">" <expr> | î;
