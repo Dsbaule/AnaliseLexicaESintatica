@@ -188,6 +188,27 @@ class MainWindow(QMainWindow):
             newitem = QTableWidgetItem(str(first))
             self.tableFirst.setItem(row + 1, 1, newitem)
 
+        self.tableFirst.resizeColumnsToContents()
+
+    def updateFollow(self):
+        followDict = self.grammar.getFollow()
+
+        self.tableFollow.setColumnCount(2)
+        self.tableFollow.setRowCount(len(self.grammar.nonTerminals) + 1)
+
+        newitem = QTableWidgetItem('X')
+        self.tableFollow.setItem(0, 0, newitem)
+        newitem = QTableWidgetItem('FOLLOW(X)')
+        self.tableFollow.setItem(0, 1, newitem)
+
+        for row, (symbol, follow) in enumerate(followDict.items()):
+            newitem = QTableWidgetItem(symbol)
+            self.tableFollow.setItem(row + 1, 0, newitem)
+            newitem = QTableWidgetItem(str(follow))
+            self.tableFollow.setItem(row + 1, 1, newitem)
+
+        self.tableFollow.resizeColumnsToContents()
+
     def updateParseTree(self):
         parsing = [ \
             ('<program>',['<block>']),
