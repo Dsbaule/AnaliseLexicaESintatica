@@ -75,7 +75,7 @@ class lexAnaliser:
 
     def generateAllTokens(self):
         while(self.index < self.length):
-            (length, token) = self.getNextToken()
+            (length, token) = self.getNextToken(False)
             if length is 0:
                 self.panicRecovery()
 
@@ -85,158 +85,163 @@ class lexAnaliser:
                 break
             self.index += 1
 
-    def getNextToken(self):
-        longesttoken = 0
-        token = 'Error'
+    def getNextToken(self, clean = True):
+        while self.index < len(self.input):
+            longesttoken = 0
+            token = 'Error'
 
-        string = self.input[self.index:(self.index + self.buffersize)]
+            string = self.input[self.index:(self.index + self.buffersize)]
 
-        tokensize = self.OP_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.OP_AFD.getTokenName()
-        tokensize = self.CP_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.CP_AFD.getTokenName()
-        tokensize = self.OB_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.OB_AFD.getTokenName()
-        tokensize = self.CB_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.CB_AFD.getTokenName()
-        tokensize = self.OCB_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.OCB_AFD.getTokenName()
-        tokensize = self.CCB_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.CCB_AFD.getTokenName()
-        tokensize = self.SC_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.SC_AFD.getTokenName()
-        tokensize = self.OR_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.OR_AFD.getTokenName()
-        tokensize = self.AND_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.AND_AFD.getTokenName()
-        tokensize = self.EQ_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.EQ_AFD.getTokenName()
-        tokensize = self.NEQ_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.NEQ_AFD.getTokenName()
-        tokensize = self.LT_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.LT_AFD.getTokenName()
-        tokensize = self.LE_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.LE_AFD.getTokenName()
-        tokensize = self.GE_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.GE_AFD.getTokenName()
-        tokensize = self.GT_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.GT_AFD.getTokenName()
-        tokensize = self.ATT_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.ATT_AFD.getTokenName()
-        tokensize = self.PL_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.PL_AFD.getTokenName()
-        tokensize = self.MN_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.MN_AFD.getTokenName()
-        tokensize = self.MT_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.MT_AFD.getTokenName()
-        tokensize = self.DV_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.DV_AFD.getTokenName()
-        tokensize = self.NOT_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.NOT_AFD.getTokenName()
-        tokensize = self.if_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.if_AFD.getTokenName()
-        tokensize = self.then_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.then_AFD.getTokenName()
-        tokensize = self.else_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.else_AFD.getTokenName()
-        tokensize = self.while_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.while_AFD.getTokenName()
-        tokensize = self.do_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.do_AFD.getTokenName()
-        tokensize = self.break_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.break_AFD.getTokenName()
-        tokensize = self.num_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.num_AFD.getTokenName()
-        tokensize = self.real_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.real_AFD.getTokenName()
-        tokensize = self.true_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.true_AFD.getTokenName()
-        tokensize = self.false_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.false_AFD.getTokenName()
-        tokensize = self.basic_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.basic_AFD.getTokenName()
-        tokensize = self.id_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.id_AFD.getTokenName()
-        tokensize = self.nl_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.nl_AFD.getTokenName()
-        tokensize = self.ws_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.ws_AFD.getTokenName()
-        tokensize = self.tb_AFD.accepts(string)
-        if tokensize > longesttoken:
-            longesttoken = tokensize
-            token = self.tb_AFD.getTokenName()
+            tokensize = self.OP_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.OP_AFD.getTokenName()
+            tokensize = self.CP_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.CP_AFD.getTokenName()
+            tokensize = self.OB_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.OB_AFD.getTokenName()
+            tokensize = self.CB_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.CB_AFD.getTokenName()
+            tokensize = self.OCB_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.OCB_AFD.getTokenName()
+            tokensize = self.CCB_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.CCB_AFD.getTokenName()
+            tokensize = self.SC_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.SC_AFD.getTokenName()
+            tokensize = self.OR_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.OR_AFD.getTokenName()
+            tokensize = self.AND_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.AND_AFD.getTokenName()
+            tokensize = self.EQ_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.EQ_AFD.getTokenName()
+            tokensize = self.NEQ_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.NEQ_AFD.getTokenName()
+            tokensize = self.LT_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.LT_AFD.getTokenName()
+            tokensize = self.LE_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.LE_AFD.getTokenName()
+            tokensize = self.GE_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.GE_AFD.getTokenName()
+            tokensize = self.GT_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.GT_AFD.getTokenName()
+            tokensize = self.ATT_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.ATT_AFD.getTokenName()
+            tokensize = self.PL_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.PL_AFD.getTokenName()
+            tokensize = self.MN_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.MN_AFD.getTokenName()
+            tokensize = self.MT_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.MT_AFD.getTokenName()
+            tokensize = self.DV_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.DV_AFD.getTokenName()
+            tokensize = self.NOT_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.NOT_AFD.getTokenName()
+            tokensize = self.if_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.if_AFD.getTokenName()
+            tokensize = self.then_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.then_AFD.getTokenName()
+            tokensize = self.else_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.else_AFD.getTokenName()
+            tokensize = self.while_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.while_AFD.getTokenName()
+            tokensize = self.do_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.do_AFD.getTokenName()
+            tokensize = self.break_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.break_AFD.getTokenName()
+            tokensize = self.num_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.num_AFD.getTokenName()
+            tokensize = self.real_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.real_AFD.getTokenName()
+            tokensize = self.true_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.true_AFD.getTokenName()
+            tokensize = self.false_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.false_AFD.getTokenName()
+            tokensize = self.basic_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.basic_AFD.getTokenName()
+            tokensize = self.id_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.id_AFD.getTokenName()
+            tokensize = self.nl_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.nl_AFD.getTokenName()
+            tokensize = self.ws_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.ws_AFD.getTokenName()
+            tokensize = self.tb_AFD.accepts(string)
+            if tokensize > longesttoken:
+                longesttoken = tokensize
+                token = self.tb_AFD.getTokenName()
 
-        self.table[string[:longesttoken]] = token
-        self.tokens.append(token)
-        self.index += longesttoken
-        return (longesttoken, token)
+            self.table[string[:longesttoken]] = token
+            self.tokens.append(token)
+            self.index += longesttoken
+            if clean:
+                if token in ['ws','tb']:
+                    continue
+            return (longesttoken, token)
+        return (1, '$')

@@ -29,12 +29,10 @@
          <widget class="QPlainTextEdit" name="plainTextEditEditor">
           <property name="plainText">
            <string>{
-	basic[19][18] = 15.26666;
-	if (test==19) then
-		test = 15.36
-	else
-		test = test + test
-	true false true
+	basic [ 8 ] arrayqualquer;
+	basic variavelqualquer; 
+
+	break ;
 }</string>
           </property>
           <property name="tabStopWidth">

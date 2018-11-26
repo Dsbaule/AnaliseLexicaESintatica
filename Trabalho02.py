@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QTableWidgetItem, QTableWidget, QMessageBox, QListWidget, QListWidgetItem, QFileDialog
 from PyQt5.uic import loadUi
 from lex import lexAnaliser
+from sint import Parser
 import GrammarReader
 
 class MainWindow(QMainWindow):
@@ -27,6 +28,8 @@ class MainWindow(QMainWindow):
         file = open('.\\Grammar.txt', 'r')
         self.grammar = GrammarReader.readGrammar(file.read())
         file.close()
+
+        self.parser = Parser(self.grammar, self.lex)
 
 
     def setUnsaved(self):
@@ -246,12 +249,8 @@ class MainWindow(QMainWindow):
         self.tableParsingTable.resizeColumnsToContents()
 
     def updateParseTree(self):
-        parsing = [ \
-            ('<program>',['<block>']),
-            ('<block>',['{','<decls>','<stmts>','}']),
-            ('<decls>',['&']),
-            ('<stmts>',['break', ';'])
-        ]
+        codigo = self.plainTextEditEditor.toPlainText()
+        parsing = self.parser.getParsingTree(codigo)
 
         if len(parsing) is 0:
             return
@@ -286,7 +285,13 @@ class MainWindow(QMainWindow):
                 if index >= len(derivation):
                     return
 
-            derivation = derivation[:index] + production + derivation[index+1:]
+            newDerivation = derivation[:index]
+            for symbol in production:
+                if symbol is not '&':
+                    newDerivation.append(symbol)
+            newDerivation += derivation[index+1:]
+
+            derivation = newDerivation
 
         string = derivation[0]
         for symbol in derivation[1:]:
